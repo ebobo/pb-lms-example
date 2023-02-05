@@ -13,6 +13,9 @@ build:
 	@go mod tidy
 	@cd cmd && go build -o ../bin/lms
 
+client:
+	@cd cmd/client && go build -o ../../bin/client 
+
 init:
 	@go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
 	@go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest

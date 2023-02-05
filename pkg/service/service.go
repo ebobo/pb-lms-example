@@ -15,6 +15,7 @@ import (
 	"atlassian.carcgl.com/bitbucket/ls/lms/pkg/api/proto/v1"
 )
 
+// Local database connection parameters
 const (
 	host     = "localhost"
 	port     = 5432
@@ -29,6 +30,7 @@ type LMSService struct {
 	pgDatabase     *sqlx.DB
 }
 
+// New - creates a new LMS gRPC server
 func New(grpcAddress string) *LMSService {
 	return &LMSService{
 		gRPCServerAddr: grpcAddress,
@@ -36,7 +38,7 @@ func New(grpcAddress string) *LMSService {
 	}
 }
 
-// Run runs the gRPC server
+// Run - runs the gRPC server
 func (lms *LMSService) Run() {
 	log.Println("Running LMS service")
 
@@ -66,6 +68,7 @@ func (lms *LMSService) Run() {
 	lms.startGRPC()
 }
 
+// startGRPC - starts the gRPC server
 func (lms *LMSService) startGRPC() error {
 	listener, err := net.Listen("tcp", lms.gRPCServerAddr)
 

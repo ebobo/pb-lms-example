@@ -33,9 +33,10 @@ func (lms *LMSService) CreateOperator(ctx context.Context, req *proto.CreateOper
 		return nil, err
 	}
 	o := &model.Operator{
-		ID:    id,
-		Name:  req.Name,
-		Valid: req.Valid,
+		ID:      id,
+		Name:    req.Name,
+		Valid:   req.Valid,
+		Created: utility.GetTimeNow(),
 	}
 	err = db.AddOperator(lms.pgDatabase, o)
 	if err != nil {
