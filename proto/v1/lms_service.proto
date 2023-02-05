@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package proto.v1;
+
+option go_package = "api/proto";
+
+import "proto/v1/lms.proto";
+import "google/protobuf/empty.proto";
+
+service LMSRecordService{
+    // list all operators
+    rpc ListOperators(google.protobuf.Empty) returns (OperatorList) {}
+    // create operator
+    rpc CreateOperator(CreateOperatorRequest) returns (CreateOperatorResponse) {}
+    // get operator by id
+    rpc GetOperator(GetOperatorRequest) returns (Operator) {}
+    // update operator
+    rpc UpdateOperator(UpdateOperatorRequest) returns (UpdateOperatorResponse) {}
+    // delete operator
+    rpc DeleteOperator(DeleteOperatorRequest) returns (DeleteOperatorResponse) {}   
+}
