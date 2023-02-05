@@ -11,7 +11,8 @@ import (
 )
 
 var opt struct {
-	LMSgRPCServerAddr string `short:"g" long:"grpc-addr" default:":9094" description:"lms micro service gRPC server address"`
+	LMSgRPCServerAddr string `short:"g" env:"GRPC_ADDR" long:"grpc-addr" default:":9094" description:"lms micro service gRPC server address"`
+	PostgresDBAddr    string `env:"DB_ADDR" long:"db-addr" default:"localhost" description:"postgres db address"`
 }
 
 func main() {
@@ -20,7 +21,7 @@ func main() {
 		log.Fatalf("error parsing flags: %v", err)
 	}
 
-	lmsService := service.New(opt.LMSgRPCServerAddr)
+	lmsService := service.New(opt.LMSgRPCServerAddr, opt.PostgresDBAddr)
 
 	lmsService.Run()
 

@@ -13,7 +13,7 @@ import (
 	"google.golang.org/protobuf/types/known/emptypb"
 )
 
-// local server address
+// test with local server address
 const (
 	lms_server_address = "localhost:9094"
 )
@@ -31,7 +31,7 @@ func main() {
 	// close the connection when done
 	defer conn.Close()
 
-	c := proto.NewLMSRecordServiceClient(conn)
+	c := proto.NewLMSConnectionServiceClient(conn)
 
 	// https://go.dev/blog/context
 	// In Go servers, each incoming request is handled in its own goroutine.

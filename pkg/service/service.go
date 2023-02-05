@@ -17,7 +17,6 @@ import (
 
 // Local database connection parameters
 const (
-	host     = "localhost"
 	port     = 5432
 	user     = "postgres"
 	password = "password"
@@ -27,13 +26,15 @@ const (
 // LMS gRPC server
 type LMSService struct {
 	gRPCServerAddr string
+	dbAddr         string
 	pgDatabase     *sqlx.DB
 }
 
 // New - creates a new LMS gRPC server
-func New(grpcAddress string) *LMSService {
+func New(grpcAddress string, dbAddress string) *LMSService {
 	return &LMSService{
 		gRPCServerAddr: grpcAddress,
+		dbAddr:         dbAddress,
 		pgDatabase:     nil,
 	}
 }
@@ -42,7 +43,7 @@ func New(grpcAddress string) *LMSService {
 func (lms *LMSService) Run() {
 	log.Println("Running LMS service")
 
-	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable", host, port, user, password, dbname)
+	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable", lms.dbAddr, port, user, password, dbname)
 	pgsql, err := sqlx.Open("postgres", psqlInfo)
 	if err != nil {
 		panic(err)
@@ -77,7 +78,7 @@ func (lms *LMSService) startGRPC() error {
 	}
 	gs := grpc.NewServer()
 
-	proto.RegisterLMSRecordServiceServer(gs, lms)
+	proto.RegisterLMSConnectionServiceServer(gs, lms)
 
 	// Start gRPC server
 	log.Printf("starting gRPC interface %s", lms.gRPCServerAddr)

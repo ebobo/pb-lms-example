@@ -46,3 +46,24 @@ DROP TABLE operators
 # exit
 
 \q
+
+# Build Docker image / push image to docker hub
+
+build
+docker build -f docker/lms.Dockerfile -t lms-ms:0.0.1 .
+
+run
+docker run -it --name lms-ms lms-ms:0.0.1
+
+run (with environment variable)
+docker run -it -e DB_ADDR=172.17.0.2 --name lms-ms -p9094:9094 lms-ms:0.0.1
+
+stop
+docker stop lms-ms
+
+check container
+docker inspect lms-ms | grep IPAddress
+docker inspect postgres-1 | grep IPAddress
+
+clean builder layer image
+docker image prune --filter label=stage=builder

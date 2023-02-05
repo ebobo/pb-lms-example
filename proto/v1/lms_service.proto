@@ -7,7 +7,7 @@ option go_package = "api/proto";
 import "proto/v1/lms.proto";
 import "google/protobuf/empty.proto";
 
-service LMSRecordService{
+service LMSConnectionService{
     // list all operators
     rpc ListOperators(google.protobuf.Empty) returns (OperatorList) {}
     // create operator
