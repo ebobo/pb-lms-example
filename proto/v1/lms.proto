@@ -1,0 +1,70 @@
+syntax = "proto3";
+
+package proto.v1;
+
+option go_package = "api/proto";
+
+// The Operator definition.
+message Operator {
+    // The unique ID of the operator
+    string id = 1;
+    // The name of the operator
+    string name = 2;
+    // The valid status of the operator
+    bool valid = 3;
+    // Time at which the operator data created.  The time format must be according
+	// to RFC3339 and of the format: "2006-01-02T15:04:05Z07:00"
+	string created = 4;
+}
+
+// The OperatorList definition.
+message OperatorList {
+    repeated Operator operators = 1; // The list of operators
+}
+
+// The GetOperatorRequest definition.
+message GetOperatorRequest {
+	string operator_id = 1; // The unique ID of the operator
+}
+
+// The CreateOperatorRequest definition.
+message CreateOperatorRequest {
+    // The name of the operator
+    string name = 1;
+    // The valid status of the operator
+    bool valid = 2;
+}
+
+// The CreateOperatorResponse definition.
+message CreateOperatorResponse {
+    // The id of the operator
+    string operator_id = 1;
+}
+
+// The UpdateOperatorRequest definition.
+message UpdateOperatorRequest {
+    // The unique ID of the operator
+    string operator_id = 1;
+    // The name of the operator
+    string name = 2;
+    // The valid status of the operator
+    bool valid = 3;
+}
+
+// The UpdateOperatorResponse definition.
+message UpdateOperatorResponse {
+    // The id of the operator
+    string operator_id = 1;
+}
+
+// The DeleteOperatorRequest definition.
+message DeleteOperatorRequest {
+    // The unique ID of the operator
+    string operator_id = 1;
+}
+
+// The DeleteOperatorResponse definition.
+message DeleteOperatorResponse {
+    // The id of the operator
+    string operator_id = 1;
+}
